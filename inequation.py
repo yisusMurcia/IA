@@ -1,4 +1,3 @@
-#The aquations give a range of values, the solution must be the greater num
 def verifyConditions(variableArray):
     var1= variableArray[0]
     var2= variableArray[1]
