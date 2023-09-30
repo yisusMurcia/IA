@@ -44,7 +44,7 @@ if __name__== '__main__':
        'Sevilla':{'Madrid': 514},
        'Granada':{'Malaga': 125, 'Madrid': 423, 'Valencia': 513},
        'Valencia':{'Granada': 513, 'Madrid': 356, 'Zaragoza':309, 'Barcelona': 346},
-       'Madrid':{'Salamanca': 203, 'Sevilla': 514, 'Malaga': 513, 'Granada': 423, 'Barcelona': 603, 'Santander': 437,\
+       'Madrid':{'Salamanca': 203, 'Sevilla': 514, 'Malaga': 513, 'Granada': 423, 'Barcelona': 603, 'Santander': 437,
                  'Valencia': 356, 'Zaragoza': 313, 'Santiago': 599},
         'Salamanca':{'Santiago': 390, 'Madrid': 203},
         'Santiago':{'Salamanca': 390, 'Madrid': 599},

@@ -7,11 +7,11 @@ def getDistance(coord1, coord2):
     lon2= coord2[1]
     return math.sqrt((lat1-lat2)**2+ (lon1-lon2)**2)
 def inRoute(a, routes):
-    route= None
+    r= None
     for route in routes:
         if a in route:
-           route= a
-    return route
+           r= route
+    return r
 def calculateWeight(route):
     weight= 0
     for r in route:
@@ -29,8 +29,8 @@ def createRoutes():
                     distStoreOrder2= getDistance(coord[order2], store)
                     distOrder1Order2= getDistance(coord[order1], coord[order2])
                     saves[order1, order2]= distStoreOrder1+distStoreOrder2-distOrder1Order2
-    routes= []
     saves= sorted(saves.items(), key= itemgetter(1), reverse=True)
+    routes= []
     for key, value in saves:
         r1= inRoute(key[0], routes)
         r2= inRoute(key[1], routes)
@@ -39,27 +39,28 @@ def createRoutes():
                 routes.append([key[0], key[1]])
         elif r1!=None and r2== None:
             if r1[0]== key[0]:
-                if calculateWeight(r1)+ calculateWeight([key[1]])<= maxWeight:
+                if (calculateWeight(r1)+ calculateWeight([key[1]]))<= maxWeight:
                     routes[routes.index(r1)].insert(0, key[1])
             elif r1[len(r1)-1]== key[0]:
-                if calculateWeight(r1)+ calculateWeight([key[1]])<= maxWeight:
+                if (calculateWeight(r1)+ calculateWeight([key[1]]))<= maxWeight:
                     routes[routes.index(r1)].append(key[1])
         elif r1== None and r2!= None:
             if r2[0]== key[1]:
-                if calculateWeight(r2)+ calculateWeight([key[0]])<= maxWeight:
+                if (calculateWeight(r2)+ calculateWeight([key[0]]))<= maxWeight:
                     routes[routes.index(r2)].insert(0, key[0])
             elif r2[len(r2)-1]== key[1]:
-                if calculateWeight(r2)+ calculateWeight([key[0]])<= maxWeight:
+                if (calculateWeight(r2)+ calculateWeight([key[0]]))<= maxWeight:
                     routes[routes.index(r2)].append(key[0])
-        elif r1!=None and r2!=None and r1!= r2:
+        elif (r1!=None and r2!=None) and r1!= r2:
             if r1[0]== key[0] and r2[len(r2)-1]== key[1]:
-                if calculateWeight(r1)+ calculateWeight(r2)<= maxWeight:
+                if (calculateWeight(r1)+ calculateWeight(r2))<= maxWeight:
                     routes[routes.index(r2)].extend(r1)
                     routes.remove(r1)
             elif r1[len(r1)-1]== key[0] and r2[0]== key[1]:
-                if calculateWeight(r1)+ calculateWeight(r2)<= maxWeight:
+                if (calculateWeight(r1)+ calculateWeight(r2))<= maxWeight:
                     routes[routes.index(r1)].extend(r2)
                     routes.remove(r2)
+    print(maxWeight)
     return routes
 if __name__== "__main__":
     coord={
@@ -68,7 +69,7 @@ if __name__== "__main__":
         'Granada': (37.11, -3.35),
         'Valencia': (39.28, -0.22),
         'Madrid': (40.24, -3.41),
-        'Salamanca': (40.57, -5.4),
+        'Salamanca': (40.57, -5.40),
         'Santiago': (42.52, -8.33),
         'Santander': (43.28, -3.48),
         'Zaragoza': (41.39, -0.52),
@@ -87,7 +88,5 @@ if __name__== "__main__":
         'Barcelona': 14
     }
     store= (40.23, -3.4)
-    maxWeight= 40
-    routes= createRoutes()
-    for r in routes:
-        print(routes)
+    maxWeight= 400
+    print(createRoutes())
