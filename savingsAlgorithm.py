@@ -60,7 +60,6 @@ def createRoutes():
                 if (calculateWeight(r1)+ calculateWeight(r2))<= maxWeight:
                     routes[routes.index(r1)].extend(r2)
                     routes.remove(r2)
-    print(maxWeight)
     return routes
 if __name__== "__main__":
     coord={
@@ -88,5 +87,5 @@ if __name__== "__main__":
         'Barcelona': 14
     }
     store= (40.23, -3.4)
-    maxWeight= 400
+    maxWeight= 40
     print(createRoutes())
