@@ -35,20 +35,14 @@ def searchSolution(typeArray, values, start, end):
             return node
         children=[]
         nextType= typeArray[node.getComeFrom()][0]
-        if nextType== None:
-            break
         for val in values[nextType]:
             childNode= Node(val)
             childNode.setComeFrom(nextType)
             childNode.setCost(node.getCost()+ values[nextType][val])
             children.append(childNode)
             if not childNode.inArray(visited):
-                if childNode.inArray(noVisited):
-                    for n in noVisited:
-                        if childNode.equal(n) and childNode.getCost()< n.getCost():
-                            noVisited.remove(n)
                 noVisited.append(childNode)
-        node.setChildren(children)
+            node.setChildren(children)
 if __name__== '__main__':
     types={
         'typeT': {'typeH', 'typeV', 'typeW'},
@@ -66,7 +60,7 @@ if __name__== '__main__':
         'typeT': ['typeH', 'typeV', 'typeW'],
         'typeH': ['typeV', 'typeW'],
         'typeV': ['typeW'],
-        'typeW': {} 
+        'typeW': []
     }
     start= 'typeT'
     end= 'typeW'
@@ -74,11 +68,9 @@ if __name__== '__main__':
     totalCost= str(solution.getCost())
     options=[]
     while solution.getFather()!= None:
-        options.append(solution.getComeFrom()+ ': '+ solution.getData()+'='+\
-         str(values[solution.getComeFrom()][solution.getData()]))
+        options.append(solution.getComeFrom()+ ': '+ solution.getData()+'='+ str(values[solution.getComeFrom()][solution.getData()]))
         solution= solution.getFather()
-    options.append(solution.getComeFrom()+ ': '+ solution.getData()+'='+\
-         str(values[solution.getComeFrom()][solution.getData()]))
+    options.append(solution.getComeFrom()+ ': '+ solution.getData()+'='+ str(values[solution.getComeFrom()][solution.getData()]))
     options.reverse()
     print(options)
     print('Total cost: '+ totalCost)
