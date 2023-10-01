@@ -41,6 +41,10 @@ def searchSolution(typeArray, values, start, end):
             childNode.setCost(node.getCost()+ values[nextType][val])
             children.append(childNode)
             if not childNode.inArray(visited):
+                if childNode.inArray(noVisited):
+                    for n in noVisited:
+                        if childNode.equal(n) and childNode.getCost()< n.getCost():
+                            noVisited.remove(n)
                 noVisited.append(childNode)
             node.setChildren(children)
 if __name__== '__main__':
