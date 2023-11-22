@@ -1,5 +1,5 @@
 from tree import Node
-def bestTrip(start, end):
+def bestTrip(start, end, connections):
     visited= []
     noVisited=[]
     startNode= Node(start)
@@ -10,8 +10,15 @@ def bestTrip(start, end):
        if node.getData()== end:
           solved= True
           return node
-       
-conections={
+       #get child
+       children=[]
+       for city in connections[node.getData()]:
+            childNode= Node(city)
+            if not childNode.inArray(visited)and not childNode.inArray(noVisited):
+                noVisited.append(childNode)
+            children.append(childNode)
+       node.setChildren(children)
+connections={
     "Malaga":{"Salamanca", "Madrid", "Barcelona"},
     "Sevilla":{"Santiago", "Madrid"},
     "Granada":{"Valencia"},
@@ -24,4 +31,13 @@ conections={
     "Barcelona":{"Zaragoza", "Santiago", "Madrid", "Malaga", "Valencia"}
 }
 if __name__== "__main__":
- result= conections
+    start= "Malaga"
+    end= "Santiago"
+    result= bestTrip(start, end, connections)
+    steps= []
+    while result.getFather()!= None:
+        steps.append(result.getData())
+        result= result.getFather()
+    steps.append(start)
+    steps.reverse()
+    print(steps)
