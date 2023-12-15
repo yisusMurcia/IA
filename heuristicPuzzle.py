@@ -1,5 +1,6 @@
 from tree import Node
 def improvement(fatherNode, childNode):
+    #Calificar los puzzles
     #calificated the order of the puzzle in both nodes
     father=0
     child=0
@@ -29,6 +30,8 @@ def solvePuzzle(startNode, solution, visited):
         startNode.setChildren([firstChild, secondChild, thirdChild])
         for node in startNode.getChildren():
             if not (node.getData() in visited) and improvement(startNode, node):
+                #Usar recursividad para explorar mejores pasos
+                #Use recursivity to explore better steps
                 solved= solvePuzzle(node, solution, visited)
                 if solved!= None:
                     return solved
