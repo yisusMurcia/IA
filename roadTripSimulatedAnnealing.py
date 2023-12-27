@@ -31,9 +31,9 @@ def simulatedAnnealing(rute):
             delta= dist- newDist
             if (newDist< dist):
                 rute= newRute[:]
-                break
+                continue
             elif random.random()< math.exp(delta/T):
-                rute= newRute
+                rute= newRute[:]
                 break
         T-= 0.005
     return rute
@@ -53,7 +53,6 @@ if __name__== "__main__":
     rute= []
     for city in coord:
         rute.append(city)
-    random.shuffle(rute)
     solution= simulatedAnnealing(rute)
     for i in range(0, 10):
         new= simulatedAnnealing(rute)
