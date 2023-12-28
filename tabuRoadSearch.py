@@ -45,7 +45,7 @@ def tabuSearch(rute):
                             rute= newRute
                             bestRute= newRute
                             mejora= True
-                            tabu[newRute[j], newRute[i]]= iterations
+                            tabu[newRute[j], newRute[i]]= time
             if len(tabu)!= 0:
                 for key in tabu:
                     if tabu[key]> 0:
