@@ -15,12 +15,12 @@ def generatepopulation(maxPopulation= 50, varNums=10):
 
 def punteateGen(gen):
     score= 0
-    for i in range(0, len(gen)-1):
+    for i in range(0, len(gen)):
         if gen[i]== solution[i]:
             score+=1
     return score
 
-def evaluatepopulation(population):
+def evaluatePopulation(population):
     score= 0
     #En base a cada individuo, si su puntación es mayor a 4, incrementa la puntación de la población en 1,
     #si es meon a 4, la puntación de la población es menor a 4
@@ -43,20 +43,39 @@ def combineGen(gen1, gen2):
     newGen2.extend(gen1[index:])
     return newGen1, newGen2
 
-def evolvePoblation(poblation, solution):
-    poblation= sorted(poblation, key= punteateGen, reverse= True)
-    #Seleccionar los 2 mejores genes y cruzarlos
-    #Select the 2 best genes and combine it
-    gen1, gen2= poblation[0], poblation[2]
-    new1, new2= combineGen(gen1, gen2)
-    poblation.append(new1)
-    poblation.append(new2)
-    poblation= sorted(poblation, key= punteateGen, reverse= True)
-    poblation.pop(len(poblation)-1)
-    poblation.pop(len(poblation)-1)
+#Crear funcion de mutación
+#Create function for mutation
+def mutate(gen, prob= 0.1):
+    if (random.random()<= prob):
+        index= random.randint(0, len(gen)-1)
+        if gen[index]== 0:
+            gen[index]= 1
+        else:
+            gen[index]= 0
+    return gen
 
+def evolvePopulation(population, solution, maxPopulation= 50, iterations= 100):
+    for i in range(0, iterations):
+        population= sorted(population, key= punteateGen, reverse= True)
+        #Seleccionar los 2 mejores genes y cruzarlos
+        #Select the 2 best genes and combine it
+        gen1, gen2= population[0], population[2]
+        new1, new2= combineGen(gen1, gen2)
+        new1= mutate(new2)
+        new2= mutate(new2)
+        population.append(new1)
+        population.append(new2)
+        population= sorted(population, key= punteateGen, reverse= True)
+        if (len(population)> maxPopulation):
+            population.pop(len(population)-1)
+            population.pop(len(population)-1)
+    return population[0]
 if __name__== "__main__":
     #Esta varieble es requerida para la ejecución de varias funciones
     #This var is neccesary for the execution of many functions
     solution= generatepopulation(1)[0]
-    poblation= generatepopulation(5)
+    population= generatepopulation(10)
+    bestGen= evolvePopulation(population, solution)
+    print(solution)
+    print(bestGen)
+    print(punteateGen(bestGen))
