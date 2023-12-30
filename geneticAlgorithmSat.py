@@ -35,6 +35,16 @@ def evaluatePopulation(population):
             score-= 1
     return score
 
+def selectGen(population):
+    total= 0
+    for gen in population: 
+        total+= punteateGen(gen)
+    randomGen= random.randint(0, 100)
+    for gen in population:
+        total-= punteateGen(gen)
+        if randomGen>= total:
+            return gen
+
 def combineGen(gen1, gen2):
     index= random.randint(0, len(gen1)-1)
     newGen1= gen1[0: index]
@@ -56,10 +66,9 @@ def mutate(gen, prob= 0.1):
 
 def evolvePopulation(population, solution, maxPopulation= 50, iterations= 100):
     for i in range(0, iterations):
-        population= sorted(population, key= punteateGen, reverse= True)
-        #Seleccionar los 2 mejores genes y cruzarlos
-        #Select the 2 best genes and combine it
-        gen1, gen2= population[0], population[2]
+        #Seleccionar los 2 mejores genes y cruzarlos, no pueden ser el mismo gen
+        #Select the 2 best genes and combine it, they can´t be the same gen
+        gen1, gen2= selectGen(population), selectGen(population)
         new1, new2= combineGen(gen1, gen2)
         new1= mutate(new2)
         new2= mutate(new2)
@@ -76,6 +85,5 @@ if __name__== "__main__":
     solution= generatepopulation(1)[0]
     population= generatepopulation(10)
     bestGen= evolvePopulation(population, solution)
-    print(solution)
     print(bestGen)
     print(punteateGen(bestGen))
