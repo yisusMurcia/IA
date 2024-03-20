@@ -1,10 +1,10 @@
 from tree import Node
 def solvePuzzle(node, end, visited:list):
     visited.append(node)
-    #retornar el resultado-return the result
+    #retornar el resultado
     if node.getData()== end:
         return node
-    #Obtener hijos del nodo para una busqueda recursiva-get childs for recursive search
+    #Obtener hijos del nodo para una busqueda recursiva-
     nodeArray= node.getData()
     firstChild= [nodeArray[1], nodeArray[0], nodeArray[2], nodeArray[3]]
     firstNode= Node(firstChild)
@@ -15,20 +15,20 @@ def solvePuzzle(node, end, visited:list):
     node.setChildren([firstNode, secondNode, thirdNode])
     for child in node.getChildren():
         if not child.inArray(visited):
-            #Hacer una busqueda recursiva si el nodo no esta visitado-make a recursive call if node isn´t visited
+            #Hacer una busqueda recursiva si el nodo no esta visitado
             sol= solvePuzzle(child, end, visited)
             if sol!= None:
                 return sol
-    #Si no se llega a la solución, el código retorna None-if the code doesn´t get the solution, it returns None
+    #Si no se llega a la solución, el código retorna None
     return None
 if __name__== "__main__":
     start= [4, 2, 3, 1]
     solution= [1, 2, 3, 4]
     visited=[]
-    #Crear el nodo inicial-create the start node
+    #Crear el nodo inicial
     startNode= Node(start)
     result= solvePuzzle(startNode, solution, visited)
-    #Añadir los pasos y mostrarlos en la pantalla-add the steps of the puzzle and print it
+    #Añadir los pasos y mostrarlos en la pantalla
     steps= []
     while result.getFather()!= None:
         steps.append(result.getData())

@@ -6,17 +6,20 @@ def bestTrip(start, end, connections):
     noVisited.append(startNode)
     solved= False
     while not solved and len(noVisited)!= 0:
+       #Seleccionar el primer elemento no visitado
        node= noVisited.pop(0)
        if node.getData()== end:
           solved= True
           return node
-       #get child
+       #Obtener nodos hijos
        children=[]
        for city in connections[node.getData()]:
             childNode= Node(city)
             if not childNode.inArray(visited)and not childNode.inArray(noVisited):
+                #Guardar en nodos no visitados los nuevos nodos
                 noVisited.append(childNode)
             children.append(childNode)
+            #Establecer los nodos hijos del nodo padre
        node.setChildren(children)
 connections={
     "Malaga":{"Salamanca", "Madrid", "Barcelona"},

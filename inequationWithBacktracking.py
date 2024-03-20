@@ -6,18 +6,20 @@ def verifyConditions(variableArray):
     if condition1 and condition2:
         return True
     return False
+
 def evalueSolution(variableArray):
     var1= variableArray[0]
     var2= variableArray[1]
     value= 6*var1+ 4*var2
     return value
+
 def backtrackingSearch(values, parameters, bestSolution, valueIndex):
-    valueIndex= (valueIndex)
+    valueIndex= valueIndex
     min= parameters[valueIndex][0]
     max= parameters[valueIndex][1]
     for n in range(min, max):
         values[valueIndex]=n
-        #verify first num
+        #Verificar el primer número
         if valueIndex< len(values)-1:
             if verifyConditions(values):
                 bestSolution= backtrackingSearch(values[:], parameters, bestSolution, valueIndex+1)
@@ -25,6 +27,7 @@ def backtrackingSearch(values, parameters, bestSolution, valueIndex):
             solution= evalueSolution(values)
             if solution> evalueSolution(bestSolution)  and verifyConditions(values):
                 bestSolution= [values[0], values[1]]
+            #Verificar el segundo número, si no cumple las condiciones, se devuelve en el nodo
     return bestSolution
 values= [0,0]
 parameters=[(0, 51), (0,76)]
